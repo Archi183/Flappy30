@@ -13,8 +13,9 @@ public class PipeSpawnerScript : MonoBehaviour {
     private float randomValueY;
 
     private void Start() {
-        spawnTimer = spawnedInterval;    
+        enabled = false;
     }
+
 
     private void Update() {
         spawnTimer -= Time.deltaTime;
@@ -39,4 +40,8 @@ public class PipeSpawnerScript : MonoBehaviour {
         enabled = false;
     }
 
+    public void StartSpawning() {
+        spawnTimer = spawnedInterval;
+        enabled = true;
+    }
 }

@@ -557,7 +557,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   gameInput: {fileID: 1588965259}
-  gameManager: {fileID: 1850659179}
   rb: {fileID: 1795020541}
   flapStrength: 5
 --- !u!4 &1795020540
@@ -669,9 +668,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c2a93fc8f3c2da98d8b5870dc4f790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  gameInput: {fileID: 1588965259}
   player: {fileID: 1795020539}
   pipeSpawnerScript: {fileID: 900723993}
-  gameOver: 0
 --- !u!4 &1850659180
 Transform:
   m_ObjectHideFlags: 0
