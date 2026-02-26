@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Player player;
     [SerializeField] private PipeSpawnerScript pipeSpawnerScript; 
+    [SerializeField] private AudioManager audioManager;
 
     private int score=0;
 
@@ -46,6 +47,10 @@ public class GameManager : MonoBehaviour {
             player.SetSimulated(true);
             pipeSpawnerScript.StartSpawning();
             player.FirstFlap();
+            audioManager.PlayFlap();
+            audioManager.StartGameplayMusicCycle();
+        } else if (currentState == GameState.Playing) {
+            audioManager.PlayFlap();
         }
     }
 
@@ -58,15 +63,20 @@ public class GameManager : MonoBehaviour {
             pipe.StopMoving();
         }
         gameOverPanel.SetActive(true);
+        audioManager.PlayHit();
+        audioManager.StopGameplayMusicCycle();
+        audioManager.PlayGameOver();
     }
 
     public void AddScore() {
         score ++;
         scoreText.text = score.ToString();
+        audioManager.PlayScore();
     }
 
     public void RestartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        audioManager.PlayOptionSelect();
     }
 
 }
