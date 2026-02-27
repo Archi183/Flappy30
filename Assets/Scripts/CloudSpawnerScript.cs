@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class PipeSpawnerScript : MonoBehaviour {
+public class CloudSpawnerScript : MonoBehaviour {
 
-    [SerializeField] private GameObject pipePair;
-    [SerializeField] private float spawnedInterval = 1.5f;
-    [SerializeField] private float minSpawnInterval = .7f;
-    [SerializeField] private float maxSpawnInterval = 2f;
+
+    [SerializeField] private GameObject could;
+    [SerializeField] private float spawnedInterval = 10f;
+    [SerializeField] private float minSpawnInterval = 8f;
+    [SerializeField] private float maxSpawnInterval = 20f;
     [SerializeField] private float minSpawnDisY = -1.8f;
     [SerializeField] private float maxSpawnDisY = 1.8f;
     private float spawnTimer;
@@ -24,24 +25,26 @@ public class PipeSpawnerScript : MonoBehaviour {
             randomValueX = Random.Range(minSpawnInterval, maxSpawnInterval);
             randomValueY = Random.Range(minSpawnDisY, maxSpawnDisY);
             spawnedInterval = randomValueX;
-            SpawnPipe();
+            SpawnClouds();
             spawnTimer = spawnedInterval;
         }
             
 
     }
 
-    private void SpawnPipe() {
+    private void SpawnClouds() {
         Vector2 randomSpawnPosition = new Vector2(transform.position.x, randomValueY);
-        Instantiate(pipePair, randomSpawnPosition, Quaternion.identity);
+        Instantiate(could, randomSpawnPosition, Quaternion.identity);
     }
 
-    public void StopSpawningPipes() {
+    public void StopSpawningClouds() {
         enabled = false;
     }
 
-    public void StartSpawningPipes() {
+    public void StartSpawningClouds() {
         spawnTimer = spawnedInterval;
         enabled = true;
     }
+
+
 }

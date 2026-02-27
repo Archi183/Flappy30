@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Player player;
     [SerializeField] private PipeSpawnerScript pipeSpawnerScript; 
+    [SerializeField] private CloudSpawnerScript cloudSpawnerScript; 
     [SerializeField] private AudioManager audioManager;
 
     private int score=0;
@@ -45,7 +46,8 @@ public class GameManager : MonoBehaviour {
             startText.SetActive(false);
             player.SetCanMove(true);
             player.SetSimulated(true);
-            pipeSpawnerScript.StartSpawning();
+            pipeSpawnerScript.StartSpawningPipes();
+            cloudSpawnerScript.StartSpawningClouds();
             player.FirstFlap();
             audioManager.PlayFlap();
             audioManager.StartGameplayMusicCycle();
@@ -57,10 +59,15 @@ public class GameManager : MonoBehaviour {
     private void player_birdHit(object sender, System.EventArgs e) {
         currentState = GameState.GameOver;
         player.SetCanMove(false);
-        pipeSpawnerScript.StopSpawning();
+        pipeSpawnerScript.StopSpawningPipes();
+        cloudSpawnerScript.StopSpawningClouds();
         PipeScript[] pipes = FindObjectsByType<PipeScript>(FindObjectsSortMode.None);
         foreach (PipeScript pipe in pipes) {
             pipe.StopMoving();
+        }
+        CloudScript[] clouds = FindObjectsByType<CloudScript>(FindObjectsSortMode.None);
+        foreach (CloudScript cloud in clouds) {
+            cloud.StopMoving();
         }
         gameOverPanel.SetActive(true);
         audioManager.PlayHit();
