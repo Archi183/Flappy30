@@ -99,7 +99,6 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void PlayGameOver() {
-        Debug.Log("Game Over from audio manager");
         bgmSource.clip = gameOverAudio;
         bgmSource.loop = false;
         bgmSource.Play();
