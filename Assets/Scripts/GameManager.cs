@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void player_birdHit(object sender, System.EventArgs e) {
+        if (currentState == GameState.Playing) {
+            audioManager.StopGameplayMusicCycle();
+            audioManager.PlayGameOver();
+        }
         currentState = GameState.GameOver;
         player.SetCanMove(false);
         pipeSpawnerScript.StopSpawningPipes();
@@ -71,19 +75,35 @@ public class GameManager : MonoBehaviour {
         }
         gameOverPanel.SetActive(true);
         audioManager.PlayHit();
-        audioManager.StopGameplayMusicCycle();
-        audioManager.PlayGameOver();
     }
 
     public void AddScore() {
         score ++;
         scoreText.text = score.ToString();
         audioManager.PlayScore();
+
+        AdjustDifficulty();
     }
 
     public void RestartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         audioManager.PlayOptionSelect();
+    }
+
+    private void AdjustDifficulty() {
+
+    float difficulty = score * 0.005f;
+
+    float minInterval = Mathf.Clamp(1.5f - difficulty, 0.5f, 1.5f);
+    float maxInterval = Mathf.Clamp(2.0f - difficulty, 0.8f, 2.0f);
+    pipeSpawnerScript.SetSpawnInterval(minInterval, maxInterval);
+
+    float heightRange = Mathf.Clamp(score * 0.06f, 0.5f, 1.8f);
+    pipeSpawnerScript.SetSpawnHeight(-heightRange, heightRange);   
+    }
+
+    public void GameExit() {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

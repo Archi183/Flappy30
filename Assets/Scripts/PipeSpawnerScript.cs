@@ -3,11 +3,11 @@ using UnityEngine;
 public class PipeSpawnerScript : MonoBehaviour {
 
     [SerializeField] private GameObject pipePair;
-    [SerializeField] private float spawnedInterval = 1.5f;
-    [SerializeField] private float minSpawnInterval = .7f;
-    [SerializeField] private float maxSpawnInterval = 2f;
-    [SerializeField] private float minSpawnDisY = -1.8f;
-    [SerializeField] private float maxSpawnDisY = 1.8f;
+    private float spawnedInterval = 1.5f;
+    private float minSpawnInterval = .7f;
+    private float maxSpawnInterval = 2f;
+    private float minSpawnDisY = -1.8f;
+    private float maxSpawnDisY = 1.8f;
     private float spawnTimer;
     private float randomValueX;
     private float randomValueY;
@@ -44,4 +44,14 @@ public class PipeSpawnerScript : MonoBehaviour {
         spawnTimer = spawnedInterval;
         enabled = true;
     }
+
+    public void SetSpawnInterval(float min, float max) {
+    minSpawnInterval = min;
+    maxSpawnInterval = max;
+    }
+
+    public void SetSpawnHeight(float minY, float maxY) {
+    minSpawnDisY = minY;
+    maxSpawnDisY = maxY;
+}
 }
